@@ -59,6 +59,10 @@ int main () {
 			 	fwd();
 			}
 		}
+
+		else {
+			fwd();
+		}
 	}
 }
 
