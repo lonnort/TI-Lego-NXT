@@ -36,27 +36,24 @@ int main () {
 	while(true) {
 		error = 0;
 
-		if ((BP.get_sensor(PORT_1, Light3) == 0) && (BP.get_sensor(PORT_2, Color1) == 0) /*&& (BP.get_sensor(PORT_1, Ultrasonic2) == 0)*/) {
-			cout << "Color: " << (int)Color1.color << " Light: " << Light3.reflected << endl;
-		 	if ((int)Color1.color != 1) {
-				BP.set_motor_power(PORT_B, motorPower/3);
-		 		sleep(1);
-		 		fwd();
-		 	}
-
-		 	else if (Light3.reflected < 2250) {
+		if (BP.get_sensor(PORT_1, Light3) == 0) {
+			else if (Light3.reflected < 2250) {
 		 		BP.set_motor_power(PORT_C, motorPower/3);
 		 		sleep(1);
 		 		fwd();
 		 	}
-		 	else {
+		}
+
+		else if (BP.get_sensor(PORT_2, Color1) == 0) {
+			if ((int)Color1.color != 1) {
+				BP.set_motor_power(PORT_B, motorPower/3);
+		 		sleep(1);
 		 		fwd();
 		 	}
 		}
 
 		else {
-		 	// neem aan dat er iets fout gaat dus stop
-		 	stop();
+		 	fdw();
 		}
 	}
 }
