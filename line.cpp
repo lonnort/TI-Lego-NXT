@@ -42,6 +42,7 @@ int main () {
 				cout << "Going right\n";
 		 		BP.set_motor_power(PORT_B, motorPower/3);
 		 		sleep(0.001);
+		 		fwd();
 		 	}
 		 	else {
 			 	fwd();
@@ -54,6 +55,7 @@ int main () {
 				cout << "Going left\n";
 				BP.set_motor_power(PORT_C, motorPower/3);
 				sleep(0.001);
+				fwd();
 		 	}
 		 	else {
 			 	fwd();
