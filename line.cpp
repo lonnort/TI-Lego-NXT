@@ -41,6 +41,7 @@ int main () {
 			if (Light3.reflected < 2250) {
 				cout << "Going right\n";
 		 		BP.set_motor_power(PORT_B, motorPower/3);
+		 		sleep(0.001);
 		 	}
 		 	else {
 			 	fwd();
@@ -48,10 +49,11 @@ int main () {
 		}
 
 		else if (BP.get_sensor(PORT_2, Color1) == 0) {
-			cout << "Color: " << (int)Color1.color << endl;
-			if ((int)Color1.color != 1) {
+			cout << "Color: " << (int)Color1.ambient << endl;
+			if (Color1.ambient < 130) {
 				cout << "Going left\n";
 				BP.set_motor_power(PORT_C, motorPower/3);
+				sleep(0.001);
 		 	}
 		 	else {
 			 	fwd();
