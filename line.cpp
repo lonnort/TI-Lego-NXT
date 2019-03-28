@@ -43,7 +43,7 @@ int main () {
 		 		fwd();
 		 	}
 		 	else {
-			 	fdw();
+			 	fwd();
 			}
 		}
 
@@ -54,7 +54,7 @@ int main () {
 		 		fwd();
 		 	}
 		 	else {
-			 	fdw();
+			 	fwd();
 			}
 		}
 	}
