@@ -48,7 +48,7 @@ int main () {
 			}
 		}
 
-		else if (BP.get_sensor(PORT_2, Color1) == 0) {
+		if (BP.get_sensor(PORT_2, Color1) == 0) {
 			cout << "Color: " << Color1.color << endl;
 			if ((int)Color1.color != 1) {
 				BP.set_motor_power(PORT_C, motorPower/3);
