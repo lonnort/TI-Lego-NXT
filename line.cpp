@@ -37,7 +37,7 @@ int main () {
 		error = 0;
 
 		if (BP.get_sensor(PORT_1, Light3) == 0) {
-			cou << "Light: " << Light3.reflected << endl;
+			cout << "Light: " << Light3.reflected << endl;
 			if (Light3.reflected < 2250) {
 		 		BP.set_motor_power(PORT_C, motorPower/3);
 		 		sleep(1);
@@ -49,7 +49,7 @@ int main () {
 		}
 
 		else if (BP.get_sensor(PORT_2, Color1) == 0) {
-			cou << "Color: " << Color1.color << endl;
+			cout << "Color: " << Color1.color << endl;
 			if ((int)Color1.color != 1) {
 				BP.set_motor_power(PORT_B, motorPower/3);
 		 		sleep(1);
