@@ -47,8 +47,9 @@ int main(){
     int32_t EncoderD = BP.get_motor_encoder(PORT_D);
 
     // Use the encoder value from motor A to control motors B, C, and D
-    BP.set_motor_power(PORT_B, EncoderA < 100 ? EncoderA > -100 ? EncoderA : -100 : 100);
-    BP.set_motor_dps(PORT_C, EncoderA);
+    BP.set_motor_dps(PORT_B, 127);
+    BP.set_motor_dps(PORT_C, 127);
+//EncoderA < 100 ? EncoderA > -100 ? EncoderA : -100 : 100);
     BP.set_motor_position(PORT_D, EncoderA);
 
     // Display the encoder values
