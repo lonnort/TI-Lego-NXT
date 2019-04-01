@@ -8,19 +8,27 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+int dps_reduction = 5;
+int rpm = 4;
+int wait = 0.001;
+int motor_dps = 360*rpm;
+
 void fwd(void){
-	BP.set_motor_dps(PORT_B, 100);
-	BP.set_motor_dps(PORT_C, 100);
+	cout << "fwd\n";
+	BP.set_motor_dps(PORT_B, motor_dps);
+	BP.set_motor_dps(PORT_C, motor_dps);
 }
 
 void left(void){
-	BP.set_motor_dps(PORT_B, 100);
-	BP.set_motor_dps(PORT_C, 50);
+	cout << "left\n";
+	BP.set_motor_dps(PORT_B, motor_dps);
+	BP.set_motor_dps(PORT_C, motor_dps/dps_reduction);
 }
 
 void right(void){
-	BP.set_motor_dps(PORT_B, 50);
-	BP.set_motor_dps(PORT_C, 100);
+	cout << "right\n";
+	BP.set_motor_dps(PORT_B, motor_dps/dps_reduction);
+	BP.set_motor_dps(PORT_C, motor_dps);
 }
 
 int main () {
@@ -29,31 +37,46 @@ int main () {
         int error;
 
         BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+	BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
 
-        sensor_color_t          Color1;
-        sensor_ultrasonic_t     Ultrasonic2;
-        sensor_light_t          Light3;
+	sensor_light_t Light3;
+	sensor_touch_t Touch4;
 
-	while(true){
+	while(true) {
+		BP.get_sensor(PORT_4, Touch4);
+		BP.get_sensor(PORT_3, Light3);
+
+		cout << Touch4.pressed << endl;
+
+		if(Touch4.pressed == 1) {
+			cout << "stop\n";
+			BP.set_motor_dps(PORT_B, 0);
+			BP.set_motor_dps(PORT_C, 0);
+			break;
+		}
+
+		cout << Light3.reflected << endl;;
 		error = 0;
+		int line_edge = 1900;
 
-		if(Light3.reflected < 1900){
+		if(Light3.reflected < line_edge){
 			right();
 		}
 
-		if(Light3.reflected > 1900){
+		if(Light3.reflected > line_edge){
 			left();
 		}
 
-		if(Light3.reflected == 1900){
+		if(Light3.reflected == line_edge){
 			fwd();
 		}
+		sleep(wait);
 	}
 }
 
 void exit_signal_handler(int signo){
         if(signo == SIGINT){
-                BP.reset_all();    // Reset everything so there are no run-away motors
+                BP.reset_all();
                 exit(-2);
         }
 }
