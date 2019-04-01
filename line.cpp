@@ -8,16 +8,11 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-int motorPower = 30;
+int motorPower = 100;
 
 void fwd(void) {
 	BP.set_motor_power(PORT_B, motorPower);
 	BP.set_motor_power(PORT_C, motorPower);
-}
-
-void stop(void) {
-	BP.set_motor_power(PORT_B, 0);
-	BP.set_motor_power(PORT_C, 0);
 }
 
 int main () {
@@ -66,7 +61,7 @@ int main () {
 
 void exit_signal_handler(int signo){
 	if(signo == SIGINT){
-		BP.reset_all();    // Reset everything so there are no run-away motors
+		BP.reset_all();
 		exit(-2);
 	}
 }
