@@ -8,6 +8,9 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
+// please gebruik een var voor de motor power
+// also: geen motor_dps maar motor_power
+
 void fwd(void){
 	BP.set_motor_dps(PORT_B, 100);
 	BP.set_motor_dps(PORT_C, 100);
@@ -31,8 +34,6 @@ int main () {
         BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
         sensor_color_t          Color1;
-        sensor_ultrasonic_t     Ultrasonic2;
-        sensor_light_t          Light3;
 
 	while(true){
 		error = 0;
@@ -53,7 +54,7 @@ int main () {
 
 void exit_signal_handler(int signo){
         if(signo == SIGINT){
-                BP.reset_all();    // Reset everything so there are no run-away motors
+                BP.reset_all();
                 exit(-2);
         }
 }
