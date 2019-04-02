@@ -10,7 +10,7 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-const int dps_reduction = 5;
+const float dps_reduction = 4.5;
 const int rpm = 3;
 const float wait = 0.001;
 unsigned int loop = 0;
@@ -34,9 +34,9 @@ void right(void){
 int main () {
 	cout << "Welcome to our software. We take no responibility for broken stuff or people dying.\n";
 
-    signal(SIGINT, exit_signal_handler);
-    BP.detect();
-    int error;
+        signal(SIGINT, exit_signal_handler);
+        BP.detect();
+        int error;
 
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 	BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
@@ -46,24 +46,38 @@ int main () {
 	sensor_light_t Light3;
 	sensor_touch_t Touch4;
 
+	BP.get_sensor(PORT_2, Ultrasonic2);
+	sleep(3);
+
 	while(true) {
 		BP.get_sensor(PORT_2, Ultrasonic2);
-		BP.get_sensor(PORT_4, Touch4);
 		BP.get_sensor(PORT_3, Light3);
-
-		cout << Touch4.pressed << endl;
 		error = 0;
-		
-		if(Touch4.pressed == 1) {
-			BP.set_motor_dps(PORT_B, 0);
-			BP.set_motor_dps(PORT_C, 0);
-			break;
-		}
+
+		cout << "Battery level: " << BP.get_voltage_battery() << "\r";
 
 		if(Ultrasonic2.cm <= 10) {
-			BP.set_motor_dps(PORT_B, 0);
-			BP.set_motor_dps(PORT_C, 0);
-			sleep(5);
+			BP.set_motor_dps(PORT_B, (motor_dps/2)*-1);
+			BP.set_motor_dps(PORT_C, motor_dps/2);
+			sleep(1);
+			BP.set_motor_dps(PORT_B, motor_dps/2);
+			BP.set_motor_dps(PORT_C, motor_dps/2);
+			sleep(1);
+			BP.set_motor_dps(PORT_B, motor_dps/2);
+			BP.set_motor_dps(PORT_C, (motor_dps/2)*-1);
+			sleep(1);
+			BP.set_motor_dps(PORT_B, motor_dps-180);
+			BP.set_motor_dps(PORT_C, motor_dps-180);
+			sleep(2);
+			BP.set_motor_dps(PORT_B, motor_dps/2);
+			BP.set_motor_dps(PORT_C, (motor_dps/2)*-1);
+			sleep(1);
+			BP.set_motor_dps(PORT_B, motor_dps/3);
+			BP.set_motor_dps(PORT_C, motor_dps/3);
+			sleep(1);
+			BP.set_motor_dps(PORT_B, (motor_dps/2)*-1);
+			BP.set_motor_dps(PORT_C, motor_dps/2);
+			sleep(1);
 		}
 
 		int line_edge = 1900;
@@ -75,14 +89,9 @@ int main () {
 		if(Light3.reflected > line_edge){
 			left();
 		}
+
 		if(Light3.reflected == line_edge){
 			fwd();
-		}
-
-		// Voor de cout met de gemeten waarden
-		loop++;
-		if (loop%50 == 0) {
-			loop = 0;
 		}
 
 		sleep(wait);
