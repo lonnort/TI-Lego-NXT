@@ -47,12 +47,13 @@ int main () {
 	sensor_touch_t Touch4;
 
 	while(true) {
-		error = 0;
 		BP.get_sensor(PORT_2, Ultrasonic2);
 		BP.get_sensor(PORT_4, Touch4);
 		BP.get_sensor(PORT_3, Light3);
 
-		cout << "Touch: " << Touch4.pressed << endl;
+		cout << Touch4.pressed << endl;
+		error = 0;
+		
 		if(Touch4.pressed == 1) {
 			BP.set_motor_dps(PORT_B, 0);
 			BP.set_motor_dps(PORT_C, 0);
