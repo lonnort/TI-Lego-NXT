@@ -41,12 +41,12 @@ int main(){
   BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_COLOR_FULL);
   BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_ULTRASONIC);
   BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-  //BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
+  BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
 
   sensor_color_t      Color1;
   sensor_ultrasonic_t Ultrasonic2;
   sensor_light_t      Light3;
-  //sensor_touch_t      Touch4;
+  sensor_touch_t      Touch4;
 
   while(true){
     error = 0;
@@ -67,9 +67,9 @@ int main(){
 		cout << "Light sensor (S3): reflected " << setw(4) << Light3.reflected << endl;
     }
 
-    //if(BP.get_sensor(PORT_4, Touch4) == 0){
-//		cout << "Touch sensor (S4): pressed " << setw(4) << Touch4.pressed << endl;
-  //  }
+    if(BP.get_sensor(PORT_4, Touch4) == 0){
+		cout << "Touch sensor (S4): pressed " << setw(4) << Touch4.pressed << endl;
+    }
 
     cout << "....." << endl;
 
