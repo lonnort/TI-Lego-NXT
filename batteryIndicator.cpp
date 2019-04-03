@@ -1,5 +1,5 @@
 #include <iostream>
-#include <wiringPi.h>
+#include <gpio>
 #include <csignal>
 #include "BrickPi3.h"
 
@@ -23,7 +23,7 @@ int main() {
 	pinMode(g, OUTPUT);
 
 	while(RUNNING) {
-		V = BP.get_voltage_battery();
+		float V = BP.get_voltage_battery();
 
 		// V tussen 10 en 12 Volt
 		// r   :         V < 10

@@ -1,3 +1,4 @@
+
 #include "BrickPi3.h"
 #include <iostream>
 #include <unistd.h>
@@ -41,10 +42,12 @@ int main () {
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 	BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLLOR_FULL);
 
 	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t Light3;
 	sensor_touch_t Touch4;
+	sensor_collor_t Collor1;
 
 	BP.get_sensor(PORT_2, Ultrasonic2);
 	sleep(3);
@@ -95,6 +98,8 @@ int main () {
 		}
 
 		sleep(wait);
+
+		if(Color1 //Grid progameren
 	}
 }
 
