@@ -18,14 +18,17 @@ void exit_handler(int signal) {
 
 void pinMode(int pin, int mode) {
 	if (mode == 1) {
-		system("gpio mode %i OUTPUT", pin);
+		command = "gpio mode " + (char)pin + " OUTPUT";
+		system(command);
 	}
 	if (mode == 0) {
-		system("gpio mode %i INPUT", pin);
+		command = "gpio mode " + (char)pin + " INPUT";
+		system(command);
 	}
 }
 
 void digitalWrite(int pin, int val) {
+	command = "gpio " + (char)pin + (char)val;
 	system("gpio %i %i", pin, val);
 }
 
