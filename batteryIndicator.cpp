@@ -1,5 +1,4 @@
 #include <iostream>
-#include <gpio>
 #include <csignal>
 #include "BrickPi3.h"
 
@@ -11,10 +10,27 @@ void exit_handler(int signal) {
 	RUNNING = false;
 }
 
+#define OUTPUT 1;
+#define INPUT  0;
+
+#define HIGH   1;
+#define LOW    0;
+
+void pinMode(int pin, int mode) {
+	if (mode == 1) {
+		system("gpio mode %i OUTPUT", pin);
+	}
+	if (mode == 0) {
+		system("gpio mode %i INPUT", pin);
+	}
+}
+
+void digitalWrite(int pin, int val) {
+	system("gpio %i %i", pin, val);
+}
+
 int main() {
 	std::signal(SIGINT, exit_handler);
-
-	wiringPiSetupGpio();
 
 	int r = 0, y = 2, g = 4;
 
