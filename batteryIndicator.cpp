@@ -10,11 +10,11 @@ void exit_handler(int signal) {
 	RUNNING = false;
 }
 
-#define OUTPUT 1;
-#define INPUT  0;
+int OUTPUT = 1;
+int INPUT  = 0;
 
-#define HIGH   1;
-#define LOW    0;
+int HIGH   = 1;
+int LOW    = 0;
 
 void pinMode(int pin, int mode) {
 	if (mode == 1) {
