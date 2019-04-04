@@ -1,3 +1,4 @@
+#include <string>
 #include <iostream>
 #include <csignal>
 #include "BrickPi3.h"
@@ -18,18 +19,21 @@ int LOW    = 0;
 
 void pinMode(int pin, int mode) {
 	if (mode == 1) {
-		command = "gpio mode " + (char)pin + " OUTPUT";
-		system(command);
+		std::string command = (string)"gpio mode " + pin + " OUTPUT";
 	}
 	if (mode == 0) {
-		command = "gpio mode " + (char)pin + " INPUT";
-		system(command);
+		std::string command = "gpio mode " + pin + " INPUT";
 	}
+	std::cout << command << std::endl;
+//	system(command.c_str());
 }
 
 void digitalWrite(int pin, int val) {
-	command = "gpio " + (char)pin + (char)val;
-	system("gpio %i %i", pin, val);
+	std::string command = "gpio ";
+	command += (char)pin;
+	command += (char)val;
+	std::cout << command << std::endl;
+//	system(command.c_str());
 }
 
 int main() {
