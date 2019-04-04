@@ -7,9 +7,16 @@ red    = LED(17)
 yellow = LED(27)
 green  = LED(23)
 
+red.on()
+yellow.on()
+green.on()
+sleep(1)
+
 while(True):
 	with open("batteryVoltage") as file:
-		voltage = int(file.read());
+		voltage = float(file.read());
+
+#	print("Voltage:", voltage)
 
 	if voltage < 10:
 		red.on()

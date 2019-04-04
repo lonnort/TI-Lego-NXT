@@ -7,13 +7,15 @@ bool RUNNING = true;
 BrickPi3 BP;
 
 int main() {
+	std::cout << "Battery Indicator\n";
 	BP.detect();
-
+	float voltage = 0.0;
 	while(true) {
 		std::ofstream file;
 		file.open("batteryVoltage");
-		std::cout << BP.get_voltage_battery();
-		file << BP.get_voltage_battery();
+		voltage = BP.get_voltage_battery();
+//		std::cout << voltage << std::endl;
+		file << voltage;
 		file.close();
 		sleep(5);
 	}
