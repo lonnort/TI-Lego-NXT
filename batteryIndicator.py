@@ -9,7 +9,7 @@ green  = LED(23)
 
 while(True):
 	with open("batteryVoltage") as file:
-		voltage = file.read();
+		voltage = int(file.read());
 
 	if voltage < 10:
 		red.on()
