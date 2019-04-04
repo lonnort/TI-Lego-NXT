@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-g++ $1 BrickPi3.cpp -o line
