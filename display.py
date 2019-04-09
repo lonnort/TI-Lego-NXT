@@ -29,7 +29,7 @@ top = padding
 bottom = height-padding
 
 x = 0
-font = ImageFont.truetype('Comic_Sans_MS', size)
+font = ImageFont.truetype('Comic_Sans_MS', 52)
 
 display.clear()
 display.display()
