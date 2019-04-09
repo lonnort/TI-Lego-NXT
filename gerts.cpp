@@ -27,13 +27,11 @@ void right(void){
     BP.set_motor_dps(PORT_C, motor_dps);
 }
 
-void follow(sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
+void follow(int followColor, sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
     while(true) {
+        BP.get_sensor(PORT_1, Color1);
         BP.get_sensor(PORT_2, Ultrasonic2);
         BP.get_sensor(PORT_3, Light3);
-
-        cout << "Ultrasonic: " << Ultrasonic2.cm << endl;
-        cout << "Light: " << Light3.reflected << endl;
 
         if(Ultrasonic2.cm <= 20){
             BP.set_motor_dps(PORT_B, 0);
@@ -41,12 +39,26 @@ void follow(sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
             sleep(1);
         }
         else {
+            int colorLeft = Color1.color;
+            usleep(0.01);
+            BP.get_sensor(PORT_3, Light3);
+            int colorRight = Color1.color;
+            usleep(0.5);
+            if (colorLeft != 1 || colorLeft != 6 || colorRight != 1 || colorRight != 6) {
+                if (colorLeft == followColor) {
+                    left();
+                }
+                if (colorRight == followColor) {
+                    right();
+                }
+            }
+
             int line_edge = 1900;
             if(Light3.reflected < line_edge){
                right();
-           }
-           if(Light3.reflected > line_edge){
-            left();
+            }
+            if(Light3.reflected > line_edge){
+                left();
             }
             if(Light3.reflected == line_edge){
                 fwd();
