@@ -9,7 +9,6 @@ from PIL import Image, ImageDraw, ImageFont
 import subprocess
 
 text = str(sys.argv[1]) # dit is correct want argv[0] == display.py
-size = int(sys.argv[2])
 
 RST = 0
 display = Adafruit_SSD1306.SSD1306_128_64(rst=RST)

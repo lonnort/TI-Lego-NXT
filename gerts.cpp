@@ -11,7 +11,6 @@ void exit_signal_handler(int signo);
 const float dps_reduction = 4.5;
 const int rpm = 3;
 const float wait = 0.001;
-unsigned int loop = 0;
 const int motor_dps = 360*rpm;
 
 void fwd(void){
@@ -44,40 +43,22 @@ void follow(void){
         BP.set_motor_dps(PORT_B, 0);
         BP.set_motor_dps(PORT_C, 0);
         sleep(1);
-        BP.set_motor_dps(PORT_B, (motor_dps/2)*-1);
-        BP.set_motor_dps(PORT_C, motor_dps/2);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, motor_dps/2);
-        BP.set_motor_dps(PORT_C, motor_dps/2);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, motor_dps/2);
-        BP.set_motor_dps(PORT_C, (motor_dps/2)*-1);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, motor_dps-180);
-        BP.set_motor_dps(PORT_C, motor_dps-180);
-        sleep(2);
-        BP.set_motor_dps(PORT_B, motor_dps/2);
-        BP.set_motor_dps(PORT_C, (motor_dps/2)*-1);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, motor_dps/3);
-        BP.set_motor_dps(PORT_C, motor_dps/3);
-        sleep(1);
-        BP.set_motor_dps(PORT_B, (motor_dps/2)*-1);
-        BP.set_motor_dps(PORT_C, motor_dps/2);
-        sleep(1);
-    } else {
+        system("./display.py OwO");
+    }
+    else {
+        system("./display.py UwU");
         int line_edge = 1900;
         if(Light3.reflected < line_edge){
          right();
-     }
-     if(Light3.reflected > line_edge){
-        left();
+        }
+        if(Light3.reflected > line_edge){
+            left();
+        }
+        if(Light3.reflected == line_edge){
+            fwd();
+        }
     }
-    if(Light3.reflected == line_edge){
-        fwd();
-    }
-}
-sleep(wait);
+    sleep(wait);
 }
 
 void armmotor(int angle){
@@ -103,9 +84,9 @@ int main(){
     bool waiting = true;
 
     while (waiting) {
-    	if(BP.get_sensor(PORT_1, Color1) == 0) {
+    	if(BP.get_sensor(PORT_1, Color1) == 0){
     		int color = Color1.color;
-            switch(color) {
+            switch(color){
                 case 1:
                     continue;
                 case 2:
@@ -128,6 +109,7 @@ int main(){
         }
     }
     armmotor(130);
+    folow();
 }
 void exit_signal_handler(int signo){
 	if(signo == SIGINT){
