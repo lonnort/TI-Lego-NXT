@@ -109,7 +109,7 @@ int main(){
         }
     }
     armmotor(130);
-    folow();
+    follow();
 }
 void exit_signal_handler(int signo){
 	if(signo == SIGINT){
