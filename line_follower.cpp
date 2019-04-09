@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <cmath>
 #include <iomanip>
+#include <fstream>
 using namespace std;
 
 BrickPi3 BP;
@@ -42,12 +43,12 @@ int main () {
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 	BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLLOR_FULL);
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 
 	sensor_ultrasonic_t Ultrasonic2;
 	sensor_light_t Light3;
 	sensor_touch_t Touch4;
-	sensor_collor_t Collor1;
+	sensor_color_t Color1;
 
 	BP.get_sensor(PORT_2, Ultrasonic2);
 	sleep(3);
@@ -58,8 +59,17 @@ int main () {
 		error = 0;
 
 		cout << "Battery level: " << BP.get_voltage_battery() << "\r";
-
+		bool disp = false;
+		if(disp) {
+			system("./display.py UwU 52");
+		}
 		if(Ultrasonic2.cm <= 10) {
+			if(!disp) {
+				system("./display.py OwO 52");
+			}
+			BP.set_motor_dps(PORT_B, 0);
+			BP.set_motor_dps(PORT_C, 0);
+			sleep(1);
 			BP.set_motor_dps(PORT_B, (motor_dps/2)*-1);
 			BP.set_motor_dps(PORT_C, motor_dps/2);
 			sleep(1);
@@ -82,24 +92,21 @@ int main () {
 			BP.set_motor_dps(PORT_C, motor_dps/2);
 			sleep(1);
 		}
+		else {
+			int line_edge = 1900;
+			if(Light3.reflected < line_edge){
+				right();
+			}
 
-		int line_edge = 1900;
+			if(Light3.reflected > line_edge){
+				left();
+			}
 
-		if(Light3.reflected < line_edge){
-			right();
+			if(Light3.reflected == line_edge){
+				fwd();
+			}
 		}
-
-		if(Light3.reflected > line_edge){
-			left();
-		}
-
-		if(Light3.reflected == line_edge){
-			fwd();
-		}
-
 		sleep(wait);
-
-		if(Color1 //Grid progameren
 	}
 }
 

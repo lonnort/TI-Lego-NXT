@@ -2,10 +2,14 @@
 
 # This requires pins 1, 3, 5, 6
 import time
+import sys
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 from PIL import Image, ImageDraw, ImageFont
 import subprocess
+
+text = str(sys.argv[1]) # dit is correct want argv[0] == display.py
+size = int(sys.argv[2])
 
 RST = 0
 display = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
@@ -26,14 +30,10 @@ top = padding
 bottom = height-padding
 
 x = 0
-font = ImageFont.truetype('Comic_Sans_MS', 56)
+font = ImageFont.truetype('Comic_Sans_MS', size)
 
 display.clear()
 display.display()
-
-while True:
-	draw.text((x, top), 'UwU', font=font, fill=255)
-	
-	display.image(image1)
-	display.display()
-	time.sleep(2)
+draw.text((x, top), text, font=font, fill=255)
+display.image(image1)
+display.display()
