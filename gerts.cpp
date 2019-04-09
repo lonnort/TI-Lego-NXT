@@ -109,6 +109,7 @@ int main(){
     		// }
 
             switch(color) {
+                cout << color;
                 case 1:
                 case 6:
                     continue;
