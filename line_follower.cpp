@@ -36,9 +36,9 @@ void right(void){
 int main () {
 	cout << "Welcome to our software. We take no responibility for broken stuff or people dying.\n";
 
-        signal(SIGINT, exit_signal_handler);
-        BP.detect();
-        int error;
+    signal(SIGINT, exit_signal_handler);
+    BP.detect();
+    int error;
 
 	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 	BP.set_sensor_type(PORT_4, SENSOR_TYPE_TOUCH);
