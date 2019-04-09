@@ -111,7 +111,8 @@ int main(){
             switch(color) {
                 case 0:
                 case 1:
-
+                    cout << "niets\n";
+                    continue;
                 case 2:
                     cout << "Blue\n";
                 case 3:
