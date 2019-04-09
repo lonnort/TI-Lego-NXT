@@ -99,30 +99,31 @@ int main(){
 
 	armmotor(-145);
 	sleep(1);
+    
     bool waiting = true;
+
     while (waiting) {
     	if(BP.get_sensor(PORT_1, Color1) == 0) {
     		int color = Color1.color;
-    		// if(color == 1) {
-    		// 	armmotor(-1);
-    		// 	int color = Color1.color;
-    		// }
-
             switch(color) {
-                cout << color;
                 case 1:
-                case 6:
                     continue;
                 case 2:
                     cout << "Blue\n";
+                    waiting = false;
+                    break;
                 case 3:
                     cout << "Green\n";
+                    waiting = false;
+                    break;
                 case 4:
                     cout << "Yellow\n";
+                    waiting = false;
+                    break;
                 case 5:
                     cout << "Red\n";
-                default:
                     waiting = false;
+                    break;
             }
         }
     }
