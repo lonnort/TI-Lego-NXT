@@ -35,7 +35,7 @@ void follow(sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
         cout << "Ultrasonic: " << Ultrasonic2.cm << endl;
         cout << "Light: " << Light3.reflected << endl;
 
-        if(Ultrasonic2.cm <= 10){
+        if(Ultrasonic2.cm <= 20){
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
             sleep(1);
