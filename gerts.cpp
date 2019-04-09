@@ -10,7 +10,6 @@ void exit_signal_handler(int signo);
 
 const float dps_reduction = 4.5;
 const int rpm = 3;
-const float wait = 0.001;
 const int motor_dps = 360*rpm;
 
 void fwd(void){
@@ -59,7 +58,6 @@ void follow(void){
             fwd();
         }
     }
-    sleep(wait);
 }
 
 void armmotor(int angle){
