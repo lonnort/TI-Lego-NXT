@@ -47,8 +47,10 @@ void follow(int followColor, sensor_color_t Color1, sensor_ultrasonic_t Ultrason
             if (colorLeft != 1 || colorLeft != 6 || colorRight != 1 || colorRight != 6) {
                 if (colorLeft == followColor) {
                     left();
+                    left();
                 }
                 if (colorRight == followColor) {
+                    right();
                     right();
                 }
             }
