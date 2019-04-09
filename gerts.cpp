@@ -99,26 +99,33 @@ int main(){
 
 	armmotor(-145);
 	sleep(1);
-	if(BP.get_sensor(PORT_1, Color1) == 0) {
-		int color = Color1.color;
-		// if(color == 1) {
-		// 	armmotor(-1);
-		// 	int color = Color1.color;
-		// }
+    bool waiting = true;
+    while (waiting) {
+    	if(BP.get_sensor(PORT_1, Color1) == 0) {
+    		int color = Color1.color;
+    		// if(color == 1) {
+    		// 	armmotor(-1);
+    		// 	int color = Color1.color;
+    		// }
 
-		if(color == 4) {
-			cout << "Yellow\n";
-		} else if(color == 5) {
-			cout << "Red\n";
-		} else if(color == 3) {
-			cout << "Green\n";
-		} else if(color == 2) {
-			cout << "Blue\n";
-		} else {
-            cout << "Niets\n";
+            switch(color) {
+                case 0:
+                case 1:
+
+                case 2:
+                    cout << "Blue\n";
+                case 3:
+                    cout << "Green\n";
+                case 4:
+                    cout << "Yellow\n";
+                case 5:
+                    cout << "Red\n";
+                default:
+                    waiting = false;
+            }
         }
-		armmotor(130);
     }
+    armmotor(130);
 }
 void exit_signal_handler(int signo){
 	if(signo == SIGINT){
