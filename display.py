@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+# This requires pins 1, 3, 5, 6
 import time
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
