@@ -92,10 +92,11 @@ int main(){
 	sleep(1);
     
     bool waiting = true;
+    int color;
 
     while (waiting) {
     	if(BP.get_sensor(PORT_1, Color1) == 0){
-    		int color = Color1.color;
+    		color = Color1.color;
             switch(color){
                 case 1:
                     continue;
@@ -119,7 +120,7 @@ int main(){
         }
     }
     armmotor(130);
-    follow(Ultrasonic2, Light3);
+    follow(color, Color1, Ultrasonic2, Light3);
 }
 
 void exit_signal_handler(int signo){
