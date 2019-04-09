@@ -28,27 +28,29 @@ void right(void){
 }
 
 void follow(sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
-    BP.get_sensor(PORT_2, Ultrasonic2);
-    BP.get_sensor(PORT_3, Light3);
+    while(true) {
+        BP.get_sensor(PORT_2, Ultrasonic2);
+        BP.get_sensor(PORT_3, Light3);
 
-    cout << "Ultrasonic: " << Ultrasonic2.cm << endl;
-    cout << "Light: " << Light3.reflected << endl;
+        cout << "Ultrasonic: " << Ultrasonic2.cm << endl;
+        cout << "Light: " << Light3.reflected << endl;
 
-    if(Ultrasonic2.cm <= 10){
-        BP.set_motor_dps(PORT_B, 0);
-        BP.set_motor_dps(PORT_C, 0);
-        sleep(1);
-    }
-    else {
-        int line_edge = 1900;
-        if(Light3.reflected < line_edge){
-         right();
+        if(Ultrasonic2.cm <= 10){
+            BP.set_motor_dps(PORT_B, 0);
+            BP.set_motor_dps(PORT_C, 0);
+            sleep(1);
         }
-        if(Light3.reflected > line_edge){
+        else {
+            int line_edge = 1900;
+            if(Light3.reflected < line_edge){
+               right();
+           }
+           if(Light3.reflected > line_edge){
             left();
-        }
-        if(Light3.reflected == line_edge){
-            fwd();
+            }
+            if(Light3.reflected == line_edge){
+                fwd();
+            }
         }
     }
 }
@@ -105,9 +107,7 @@ int main(){
         }
     }
     armmotor(130);
-    while (true) {
-        follow(Ultrasonic2, Light3);
-    }
+    follow(Ultrasonic2, Light3);
 }
 
 void exit_signal_handler(int signo){
