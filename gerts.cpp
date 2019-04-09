@@ -27,7 +27,7 @@ void right(void){
     BP.set_motor_dps(PORT_C, motor_dps);
 }
 
-void follow(void){
+void follow(sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
     BP.get_sensor(PORT_2, Ultrasonic2);
     BP.get_sensor(PORT_3, Light3);
 
@@ -106,7 +106,7 @@ int main(){
     }
     armmotor(130);
     while (true) {
-        follow();
+        follow(Ultrasonic2, Light3);
     }
 }
 
