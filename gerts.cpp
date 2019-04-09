@@ -45,16 +45,8 @@ void follow(void){
         BP.set_motor_dps(PORT_B, 0);
         BP.set_motor_dps(PORT_C, 0);
         sleep(1);
-        if (disp) {
-            system("./display.py OwO");
-            disp = false;
-        }
     }
     else {
-        if (!disp) {
-            system("./display.py UwU");
-            disp = true;
-        }
         int line_edge = 1900;
         if(Light3.reflected < line_edge){
          right();
