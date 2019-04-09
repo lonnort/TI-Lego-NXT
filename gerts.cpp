@@ -127,6 +127,7 @@ int main(){
 
 void exit_signal_handler(int signo){
 	if(signo == SIGINT){
+        
 		BP.reset_all();
 		exit(-2);
 	}
