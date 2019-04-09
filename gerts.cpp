@@ -28,13 +28,6 @@ void right(void){
 }
 
 void follow(void){
-	BP.detect();
-	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-    BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
-
-    sensor_ultrasonic_t Ultrasonic2;
-    sensor_light_t      Light3;
-
     BP.get_sensor(PORT_2, Ultrasonic2);
     BP.get_sensor(PORT_3, Light3);
 
@@ -72,8 +65,12 @@ void armmotor(int angle){
 int main(){
 	BP.detect();
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+    BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+    BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
 	sensor_color_t      Color1;
+    sensor_ultrasonic_t Ultrasonic2;
+    sensor_light_t      Light3;
 
 	signal(SIGINT, exit_signal_handler);
 
