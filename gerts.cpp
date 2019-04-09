@@ -105,8 +105,7 @@ int main(){
 		// 	armmotor(-1);
 		// 	int color = Color1.color;
 		// }
-		// armmotor(130);
-        
+
 		if(color == 4) {
 			cout << "Yellow\n";
 		} else if(color == 5) {
@@ -118,6 +117,7 @@ int main(){
 		} else {
             cout << "Niets\n";
         }
+		armmotor(130);
     }
 }
 void exit_signal_handler(int signo){
