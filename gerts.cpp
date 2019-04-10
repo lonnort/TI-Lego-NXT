@@ -8,7 +8,7 @@ BrickPi3 BP;
 
 void exit_signal_handler(int signo);
 
-const float dps_reduction = 4.5;
+const float dps_reduction = 4;
 const int rpm = 3;
 const int motor_dps = 360*rpm;
 

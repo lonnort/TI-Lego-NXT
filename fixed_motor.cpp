@@ -5,7 +5,7 @@
 
 BrickPi3 BP;
 
-int32_t angle = 360;
+int32_t angle = -280;
 
 void exit_signal_handler(int signo);
 

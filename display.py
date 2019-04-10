@@ -33,6 +33,6 @@ font = ImageFont.truetype('Comic_Sans_MS', 52)
 
 display.clear()
 display.display()
-draw.text((x, top), text, font=font, fill=255)
+draw.text((x, 0), text, font=font, fill=255)
 display.image(image1)
 display.display()
