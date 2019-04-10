@@ -44,7 +44,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_C, 0);
         }
         else {
-            bool first = true
+            bool first = true;
             if (!first) {
                 detectCrossing(Color1);
             }
