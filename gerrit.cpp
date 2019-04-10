@@ -45,6 +45,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_C, 0);
             if (dispSet) {
                 system("python3 ./display.py OwO");
+            }
         }
         else {
             if (!dispSet) {
