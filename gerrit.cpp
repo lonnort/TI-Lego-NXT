@@ -18,6 +18,7 @@ const float collision_distance = 20;
 void exit_signal_handler(int signo);
 void detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 void armMotor(int angle);
+void detectCrossing(sensor_color_t Color1);
 
 void moveFwd(void){
     BP.set_motor_dps(PORT_B, motor_dps);
@@ -35,7 +36,7 @@ void moveRight(void){
 }
 
 void followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1){
-	detectCrossing(sensor_color_t Color1);
+	// detectCrossing(sensor_color_t Color1);
 	detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 	
 	while(true) {
@@ -110,22 +111,21 @@ void detectMed(sensor_color_t Color1){
 }
 
 int main(){
-	while(true){
-		BP.detect();
-		BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
-		BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
-		BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
+	BP.detect();
+	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
+	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
+	BP.set_sensor_type(PORT_3, SENSOR_TYPE_NXT_LIGHT_ON);
 
-		sensor_color_t      Color1;
-		sensor_ultrasonic_t Ultrasonic2;
-		sensor_light_t      Light3;
+	sensor_color_t      Color1;
+	sensor_ultrasonic_t Ultrasonic2;
+	sensor_light_t      Light3;
 
-		signal(SIGINT, exit_signal_handler);
-		
-		detectMed(sensor_color_t Color1);
-		
+	signal(SIGINT, exit_signal_handler);
+
+	detectMed(sensor_color_t Color1);		
+	
+    while(true){		
 		followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1);
-		
 	}
 }
 
