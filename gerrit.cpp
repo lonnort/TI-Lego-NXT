@@ -16,8 +16,8 @@ const int line_edge = 1900;
 const float collision_distance = 20;
 
 void exit_signal_handler(int signo);
-void detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 void armMotor(int angle);
+void detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 void detectCrossing(sensor_color_t Color1);
 
 void moveFwd(void){
@@ -35,9 +35,9 @@ void moveRight(void){
     BP.set_motor_dps(PORT_C, motor_dps);
 }
 
-void followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1){
-	// detectCrossing(sensor_color_t Color1);
-	detectObstacle(sensor_ultrasonic_t Ultrasonic2);
+void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
+	// detectCrossing(Color1);
+	detectObstacle(Ultrasonic2);
 	
 	while(true) {
         BP.get_sensor(PORT_3, Light3);
@@ -124,8 +124,8 @@ int main(){
 
 	detectMed(sensor_color_t Color1);		
 	
-    while(true){		
-		followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1);
+    while(true){
+		followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3);
 	}
 }
 
