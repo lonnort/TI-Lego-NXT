@@ -5,7 +5,7 @@
 
 BrickPi3 BP;
 
-int32_t angle = -280;
+int32_t angle = -30;
 
 void exit_signal_handler(int signo);
 
@@ -15,6 +15,7 @@ int main() {
 	signal(SIGINT, exit_signal_handler);
 
 	BP.detect();
+	BP.set_motor_limits(PORT_A, 50, 200);
 	BP.offset_motor_encoder(PORT_A, BP.get_motor_encoder(PORT_A));
 	int32_t nul = 0;
 	BP.set_motor_position(PORT_A, nul);
