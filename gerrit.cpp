@@ -2,20 +2,22 @@
 #include <iostream>
 #include <unistd.h>
 #include <signal.h>
+#include <chrono>
 using namespace std;
 
 BrickPi3 BP;
 
-//Calibrate motors:
-const float dps_reduction = 4.5;
-const int rpm = 3;
-const int motor_dps = 360*rpm;
+const float        dps_reduction = 4.5;
+const unsigned int rpm = 3;
+const unsigned int motor_dps = 360*rpm;
 
-//Calibrate sensors:
-const int line_edge = 1900;
+const int   line_edge = 1900;
 const float collision_distance = 20;
 
+unsigned int color;
+
 void exit_signal_handler(int signo);
+
 void armMotor(int angle);
 void detectCrossing(sensor_color_t Color1);
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2);
@@ -41,8 +43,9 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
         }
-        // detectCrossing(Color1);
         else {
+            detectCrossing(Color1, color);
+
             BP.get_sensor(PORT_3, Light3);
             
             if(Light3.reflected < line_edge){
@@ -74,17 +77,36 @@ bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 	return (Ultrasonic2.cm <= 20);
 }
 
-// void detectCrossing(sensor_color_t Color1){
-	
-// }
+void detectCrossing(sensor_color_t Color1, int followColor){
+    BP.get_sensor(PORT_1, Color1);
+	if(Color1.color != 1 || Color1.color != 6) {
+        int colorLeft = Color1.color;
+        auto starttime = std::chrono::system_clock::now();
+        while (true) {
+            BP.get_sensor(PORT_1, Color1);
+            if (std::chrono::system_clock::now() > (starttime + 500)) {
+                break;
+            }
+            if (Color1.color != colorLeft || Color1.color != 1 || Color1.color != 6) {
+                int colorRight = Color1.color;
+            }
+        }
+    }
+    if (colorLeft == followColor) {
+        moveLeft;
+        sleep(2);
+    }
+    else if (colorRight == followColor) {
+        moveRight;
+        sleep(2);
+    }
+}
 
 void detectMed(sensor_color_t Color1){
 	armMotor(-145);
 	sleep(1);
 	
 	bool waiting = true;
-    int color;
-
     while (waiting){
     	if(BP.get_sensor(PORT_1, Color1) == 0){
     		color = Color1.color;
