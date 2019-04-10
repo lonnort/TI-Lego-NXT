@@ -17,8 +17,8 @@ const float collision_distance = 20;
 
 void exit_signal_handler(int signo);
 void armMotor(int angle);
-void detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 void detectCrossing(sensor_color_t Color1);
+bool detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 
 void moveFwd(void){
     BP.set_motor_dps(PORT_B, motor_dps);
