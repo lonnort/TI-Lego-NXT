@@ -45,11 +45,13 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_C, 0);
             if (dispSet) {
                 system("python3 ./display2.py OwO");
+                dispSet = false;
             }
         }
         else {
             if (!dispSet) {
                 system("python3 ./display2.py UwU");
+                dispSet = true;
             }
             bool first = true;
             if (!first) {
