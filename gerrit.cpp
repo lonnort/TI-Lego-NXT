@@ -44,8 +44,10 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_C, 0);
         }
         else {
-            detectCrossing(Color1);
-
+            bool first = true
+            if (!first) {
+                detectCrossing(Color1);
+            }
             BP.get_sensor(PORT_3, Light3);
             
             if(Light3.reflected < line_edge){
@@ -57,6 +59,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             if(Light3.reflected == line_edge){
                     moveFwd();
             }
+            first = false;
         }
     }
 }
