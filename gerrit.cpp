@@ -83,7 +83,7 @@ void detectCrossing(sensor_color_t Color1, int followColor){
     int colorRight;
 	if(Color1.color != 1 || Color1.color != 6) {
         colorLeft = Color1.color;
-        milliseconds starttime = duration_cast< milliseconds >(chrono::system_clock::now().time_since_epoch());
+        int starttime = duration_cast< int >(chrono::system_clock::now().time_since_epoch());
         while (true) {
             BP.get_sensor(PORT_1, Color1);
             if (chrono::system_clock::now() > (starttime + 500)) {
