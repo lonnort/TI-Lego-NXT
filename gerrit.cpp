@@ -19,7 +19,7 @@ unsigned int color;
 void exit_signal_handler(int signo);
 
 void armMotor(int angle);
-void detectCrossing(sensor_color_t Color1, int color);
+void detectCrossing(sensor_color_t Color1);
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 
 void moveFwd(void){
@@ -44,7 +44,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             BP.set_motor_dps(PORT_C, 0);
         }
         else {
-            detectCrossing(Color1, color);
+            detectCrossing(Color1);
 
             BP.get_sensor(PORT_3, Light3);
             
@@ -77,14 +77,16 @@ bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 	return (Ultrasonic2.cm <= 20);
 }
 
-void detectCrossing(sensor_color_t Color1, int followColor){
+void detectCrossing(sensor_color_t Color1){
+    const unsigned int followColor = color;
     BP.get_sensor(PORT_1, Color1);
     cout << "color: " << Color1.color << endl;
-    int colorLeft;
-    int colorRight;
+
+    int colorLeft, colorRight;
 	if(Color1.color != 1 || Color1.color != 6) {
         colorLeft = Color1.color;
         long double starttime = time(0);
+
         while (true) {
             BP.get_sensor(PORT_1, Color1);
             if (time(0) > (starttime + 500)) {
