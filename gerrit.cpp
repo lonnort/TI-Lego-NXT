@@ -82,11 +82,11 @@ void detectCrossing(sensor_color_t Color1){
 
     // BP.get_sensor(PORT_1, Color1);
     if (BP.get_sensor(PORT_1, Color1) == 0) {
-        cout << "color: " << Color1.color << endl;
+        cout << "color: " << (int)Color1.color << endl;
 
         int colorLeft, colorRight;
-    	if(Color1.color != 1 || Color1.color != 6) {
-            colorLeft = Color1.color;
+    	if((int)Color1.color != 1 || (int)Color1.color != 6) {
+            colorLeft = (int)Color1.color;
             long double starttime = time(0);
 
             while (true) {
@@ -94,7 +94,7 @@ void detectCrossing(sensor_color_t Color1){
                 if (time(0) > (starttime + 500)) {
                     break;
                 }
-                if (Color1.color != colorLeft || Color1.color != 1 || Color1.color != 6) {
+                if ((int)Color1.color != colorLeft || (int)Color1.color != 1 || (int)Color1.color != 6) {
                     colorRight = Color1.color;
                 }
             }
