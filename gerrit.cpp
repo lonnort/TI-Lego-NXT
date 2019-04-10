@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <signal.h>
-#include <chrono>
+#include <ctime>
 using namespace std;
 
 BrickPi3 BP;
@@ -83,10 +83,10 @@ void detectCrossing(sensor_color_t Color1, int followColor){
     int colorRight;
 	if(Color1.color != 1 || Color1.color != 6) {
         colorLeft = Color1.color;
-        int starttime = duration_cast< int >(chrono::system_clock::now().time_since_epoch());
+        long double starttime = time(0);
         while (true) {
             BP.get_sensor(PORT_1, Color1);
-            if (chrono::system_clock::now() > (starttime + 500)) {
+            if (time(0) > (starttime + 500)) {
                 break;
             }
             if (Color1.color != colorLeft || Color1.color != 1 || Color1.color != 6) {
