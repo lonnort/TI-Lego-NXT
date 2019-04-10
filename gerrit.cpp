@@ -41,6 +41,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
         if (detectObstacle(Ultrasonic2)) {
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
+            sleep(3);
         }
         else {
             BP.get_sensor(PORT_3, Light3);
