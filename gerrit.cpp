@@ -32,7 +32,7 @@ void moveRight(void){
     BP.set_motor_dps(PORT_C, motor_dps);
 }
 
-void followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2,sensor_color_t Color1){
+void followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1){
 	detectCrossing(sensor_color_t Color1);
 	detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 	
@@ -68,13 +68,9 @@ void detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 	}
 }
 
-void avoidObstacle(void){
+// void detectCrossing(sensor_color_t Color1){
 	
-}
-
-void detectCrossing(sensor_color_t Color1){
-		
-}
+// }
 
 void detectMed(sensor_color_t Color1){
 	armMotor(-145);
@@ -108,7 +104,7 @@ void detectMed(sensor_color_t Color1){
             }
         }
     }
-    armmotor(130);
+    armMotor(130);
 }
 
 int main(){
@@ -126,7 +122,7 @@ int main(){
 		
 		detectMed(sensor_color_t Color1);
 		
-		followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2,sensor_color_t Color1);
+		followLine(sensor_light_t Light3, sensor_ultrasonic_t Ultrasonic2, sensor_color_t Color1);
 		
 	}
 }
