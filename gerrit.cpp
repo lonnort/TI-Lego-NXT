@@ -36,19 +36,21 @@ void moveRight(void){
 }
 
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
-	// detectCrossing(Color1);
-	detectObstacle(Ultrasonic2);
-
-    BP.get_sensor(PORT_3, Light3);
+    while (true) {
+        // detectCrossing(Color1);
+        detectObstacle(Ultrasonic2);
     
-	if(Light3.reflected < line_edge){
-           moveRight();
-    }
-    if(Light3.reflected > line_edge){
-            moveLeft();
-    }
-    if(Light3.reflected == line_edge){
-            moveFwd();
+        BP.get_sensor(PORT_3, Light3);
+        
+        if(Light3.reflected < line_edge){
+               moveRight();
+        }
+        if(Light3.reflected > line_edge){
+                moveLeft();
+        }
+        if(Light3.reflected == line_edge){
+                moveFwd();
+        }
     }
 }
 
@@ -119,11 +121,8 @@ int main(){
 
 	signal(SIGINT, exit_signal_handler);
 
-	detectMed(Color1);		
-	
-    while(true){
-		followLine(Color1, Ultrasonic2, Light3);
-	}
+	detectMed(Color1);
+	followLine(Color1, Ultrasonic2, Light3);
 }
 
 void exit_signal_handler(int signo){
