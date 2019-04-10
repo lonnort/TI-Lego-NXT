@@ -37,7 +37,10 @@ void moveRight(void){
 
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
 	// detectCrossing(Color1);
-	detectObstacle(Ultrasonic2);
+	if (detectObstacle(Ultrasonic2)) {
+        BP.set_motor_dps(PORT_B, 0);
+        BP.set_motor_dps(PORT_C, 0);
+    }
 	
 	while(true) {
         BP.get_sensor(PORT_3, Light3);
@@ -63,12 +66,8 @@ void armMotor(int angle){
     BP.set_motor_position_relative(PORT_A, angle);
 }
 
-void detectObstacle(sensor_ultrasonic_t Ultrasonic2){
-	if(Ultrasonic2.cm <= 20){
-            BP.set_motor_dps(PORT_B, 0);
-            BP.set_motor_dps(PORT_C, 0);
-            sleep(1);
-	}
+bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
+	return (Ultrasonic2.cm <= 20)
 }
 
 // void detectCrossing(sensor_color_t Color1){
