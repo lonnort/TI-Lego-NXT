@@ -53,6 +53,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
                 system("python3 ./display2.py UwU");
                 dispSet = true;
             }
+
             bool first = true;
             if (!first) {
                 detectCrossing(Color1);
@@ -159,6 +160,7 @@ void detectMed(sensor_color_t Color1){
 }
 
 int main(){
+    system("python3 ./display");
 	BP.detect();
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
