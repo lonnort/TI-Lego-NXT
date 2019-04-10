@@ -64,6 +64,8 @@ void armMotor(int angle){
 }
 
 void detectObstacle(sensor_ultrasonic_t Ultrasonic2){
+    BP.get_sensor(PORT_2, Ultrasonic2);
+    
 	if (Ultrasonic2.cm <= 20) {
         BP.set_motor_dps(PORT_B, 0);
         BP.set_motor_dps(PORT_C, 0);
