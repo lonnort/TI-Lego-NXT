@@ -19,7 +19,7 @@ unsigned int color;
 void exit_signal_handler(int signo);
 
 void armMotor(int angle);
-void detectCrossing(sensor_color_t Color1);
+void detectCrossing(sensor_color_t Color1, int color);
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2);
 
 void moveFwd(void){
