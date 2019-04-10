@@ -67,7 +67,7 @@ void armMotor(int angle){
 }
 
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
-	return (Ultrasonic2.cm <= 20)
+	return (Ultrasonic2.cm <= 20);
 }
 
 // void detectCrossing(sensor_color_t Color1){
