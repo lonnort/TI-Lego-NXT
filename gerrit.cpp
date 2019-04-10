@@ -122,10 +122,10 @@ int main(){
 
 	signal(SIGINT, exit_signal_handler);
 
-	detectMed(sensor_color_t Color1);		
+	detectMed(Color1);		
 	
     while(true){
-		followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3);
+		followLine(Color1, Ultrasonic2, Light3);
 	}
 }
 
