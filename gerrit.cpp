@@ -79,8 +79,10 @@ bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 
 void detectCrossing(sensor_color_t Color1, int followColor){
     BP.get_sensor(PORT_1, Color1);
+    int colorLeft;
+    int colorRight;
 	if(Color1.color != 1 || Color1.color != 6) {
-        int colorLeft = Color1.color;
+        colorLeft = Color1.color;
         auto starttime = std::chrono::system_clock::now();
         while (true) {
             BP.get_sensor(PORT_1, Color1);
@@ -88,7 +90,7 @@ void detectCrossing(sensor_color_t Color1, int followColor){
                 break;
             }
             if (Color1.color != colorLeft || Color1.color != 1 || Color1.color != 6) {
-                int colorRight = Color1.color;
+                colorRight = Color1.color;
             }
         }
     }
