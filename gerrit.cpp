@@ -38,12 +38,18 @@ void moveRight(void){
 }
 
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
+    bool dispSet = false;
     while (true) {
         if (detectObstacle(Ultrasonic2)) {
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
+            if (dispSet) {
+                system("python3 ./display.py OwO");
         }
         else {
+            if (!dispSet) {
+                system("python3 ./display.py UwU");
+            }
             bool first = true;
             if (!first) {
                 detectCrossing(Color1);
