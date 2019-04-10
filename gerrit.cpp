@@ -79,7 +79,8 @@ bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 
 void detectCrossing(sensor_color_t Color1){
     const unsigned int followColor = color;
-    BP.get_sensor(PORT_1, Color1);
+    
+    // BP.get_sensor(PORT_1, Color1);
     cout << "color: " << Color1.color << endl;
 
     int colorLeft, colorRight;
