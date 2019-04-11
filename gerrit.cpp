@@ -40,14 +40,7 @@ void moveRight(void){
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
     bool dispSet = false;
     while (true) {
-        if (detectObstacle(Ultrasonic2) == true) {
-            BP.set_motor_dps(PORT_B, 0);
-            BP.set_motor_dps(PORT_C, 0);
-            if (dispSet) {
-                system("python3 ./display2.py OwO");
-                dispSet = false;
-            }
-        } else {
+        if (!detectObstacle(Ultrasonic2)) {
             if (!dispSet) {
                 system("python3 ./display2.py UwU");
                 dispSet = true;
@@ -68,6 +61,14 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
             if(Light3.reflected == line_edge){
                     moveFwd();
             }
+        } else {
+            BP.set_motor_dps(PORT_B, 0);
+            BP.set_motor_dps(PORT_C, 0);
+            if (dispSet) {
+                system("python3 ./display2.py OwO");
+                dispSet = false;
+            }
+            
             first = false;
         }
     }
