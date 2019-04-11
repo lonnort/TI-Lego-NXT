@@ -12,7 +12,7 @@ const unsigned int rpm = 3;
 const unsigned int motor_dps = 360*rpm;
 
 const int   line_edge = 1900;
-const float collision_distance = 20;
+const float collision_distance = 15;
 
 unsigned int color;
 
@@ -40,15 +40,14 @@ void moveRight(void){
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
     bool dispSet = false;
     while (true) {
-        if (detectObstacle(Ultrasonic2)) {
+        if (detectObstacle(Ultrasonic2) == true) {
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
             if (dispSet) {
                 system("python3 ./display2.py OwO");
                 dispSet = false;
             }
-        }
-        else {
+        } else {
             if (!dispSet) {
                 system("python3 ./display2.py UwU");
                 dispSet = true;
@@ -59,7 +58,7 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
                 detectCrossing(Color1);
             }
             BP.get_sensor(PORT_3, Light3);
-            
+
             if(Light3.reflected < line_edge){
                    moveRight();
             }
@@ -87,7 +86,7 @@ void armMotor(int angle){
 
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
     BP.get_sensor(PORT_2, Ultrasonic2);
-	return (Ultrasonic2.cm <= 20);
+	return (Ultrasonic2.cm <= collision_distance);
 }
 
 void detectCrossing(sensor_color_t Color1){
@@ -120,9 +119,9 @@ void detectCrossing(sensor_color_t Color1){
             moveRight;
             sleep(2);
         }
-    }
-    else {
+	else {
         cout << "BROKE AF\n";
+	}
     }
 }
 
@@ -160,7 +159,7 @@ void detectMed(sensor_color_t Color1){
 }
 
 int main(){
-    system("python3 ./display");
+    system("python3 ./display.py");
 	BP.detect();
 	BP.set_sensor_type(PORT_1, SENSOR_TYPE_NXT_COLOR_FULL);
 	BP.set_sensor_type(PORT_2, SENSOR_TYPE_NXT_ULTRASONIC);
