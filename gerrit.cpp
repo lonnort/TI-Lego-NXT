@@ -8,13 +8,15 @@ using namespace std;
 BrickPi3 BP;
 
 const float        dps_reduction = 4.5;
-const unsigned int rpm = 3;
+const unsigned int rpm = 2;
 const unsigned int motor_dps = 360*rpm;
 
 const int   line_edge = 1900;
-const float collision_distance = 15;
+const float collision_distance = 25;
 
 unsigned int color;
+
+unsigned int check_dist = 0;
 
 void exit_signal_handler(int signo);
 
@@ -38,18 +40,20 @@ void moveRight(void){
 }
 
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
+    usleep(0.1);
     bool dispSet = false;
     while (true) {
+        bool first = true;
         if (!detectObstacle(Ultrasonic2)) {
-            if (!dispSet) {
+           /* if (!dispSet) {
                 system("python3 ./display2.py UwU");
                 dispSet = true;
-            }
+            }*/
 
-            bool first = true;
             if (!first) {
                 detectCrossing(Color1);
             }
+            
             BP.get_sensor(PORT_3, Light3);
 
             if(Light3.reflected < line_edge){
@@ -64,10 +68,10 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
         } else {
             BP.set_motor_dps(PORT_B, 0);
             BP.set_motor_dps(PORT_C, 0);
-            if (dispSet) {
+           /* if (dispSet) {
                 system("python3 ./display2.py OwO");
                 dispSet = false;
-            }
+            }*/
             
             first = false;
         }
@@ -86,8 +90,16 @@ void armMotor(int angle){
 }
 
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
-    BP.get_sensor(PORT_2, Ultrasonic2);
-	return (Ultrasonic2.cm <= collision_distance);
+    if (check_dist%100 == 0) {
+        cout << "checking distance\n";
+        BP.get_sensor(PORT_2, Ultrasonic2);
+        if (Ultrasonic2.cm <= collision_distance) {
+            return (true);
+        }
+        check_dist = 0;
+    }
+    check_dist++;
+    return(false);
 }
 
 void detectCrossing(sensor_color_t Color1){
@@ -114,15 +126,15 @@ void detectCrossing(sensor_color_t Color1){
         }
         if (colorLeft == followColor) {
             moveLeft;
-            sleep(2);
+            //sleep(2);
         }
         else if (colorRight == followColor) {
             moveRight;
-            sleep(2);
+            //sleep(2);
         }
-	else {
+        else {
         cout << "BROKE AF\n";
-	}
+        }
     }
 }
 
