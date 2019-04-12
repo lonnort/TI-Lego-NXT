@@ -150,8 +150,8 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
 			BP.get_sensor(PORT_3, Light3);
 
             if(Light3.reflected < line_edge) moveRight();
-            if(Light3.reflected > line_edge) moveLeft();
-            if(Light3.reflected == line_edge) moveForward();
+            else if(Light3.reflected > line_edge) moveLeft();
+            else if(Light3.reflected == line_edge) moveForward();
 		}else{
 			fullStop();
 		}
