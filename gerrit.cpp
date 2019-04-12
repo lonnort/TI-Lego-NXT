@@ -9,7 +9,7 @@ BrickPi3 BP;
 
 const float        dps_reduction = 4.5;
 const unsigned int rpm = 2;
-const unsigned int motor_dps = 360*rpm;
+const int          motor_dps = 360*rpm;
 
 const int   line_edge = 1900;
 const float collision_distance = 25;
@@ -43,37 +43,17 @@ void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_l
     usleep(0.1);
     bool dispSet = false;
     while (true) {
-        bool first = true;
         if (!detectObstacle(Ultrasonic2)) {
-           /* if (!dispSet) {
-                system("python3 ./display2.py UwU");
-                dispSet = true;
-            }*/
-
-            if (!first) {
-                detectCrossing(Color1);
-            }
+            detectCrossing(Color1);
             
             BP.get_sensor(PORT_3, Light3);
 
-            if(Light3.reflected < line_edge){
-                   moveRight();
-            }
-            if(Light3.reflected > line_edge){
-                    moveLeft();
-            }
-            if(Light3.reflected == line_edge){
-                    moveFwd();
-            }
+            if(Light3.reflected < line_edge) moveRight();
+            if(Light3.reflected > line_edge) moveLeft();
+            if(Light3.reflected == line_edge) moveFwd();
         } else {
             BP.set_motor_dps(PORT_B, 0);
-            BP.set_motor_dps(PORT_C, 0);
-           /* if (dispSet) {
-                system("python3 ./display2.py OwO");
-                dispSet = false;
-            }*/
-            
-            first = false;
+            BP.set_motor_dps(PORT_C, 0);            
         }
     }
 }
@@ -91,7 +71,6 @@ void armMotor(int angle){
 
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
     if (check_dist%100 == 0) {
-        cout << "checking distance\n";
         BP.get_sensor(PORT_2, Ultrasonic2);
         if (Ultrasonic2.cm <= collision_distance) {
             return (true);
@@ -102,39 +81,56 @@ bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
     return(false);
 }
 
+void pick_dir(void) {
+    if (color == 4) { // geel = links
+        BP.set_motor_dps(PORT_B, (motor_dps * -1));
+        BP.set_motor_dps(PORT_C, motor_dps);
+        usleep(1);
+    }
+    else if (color == 5) { // rood = rechts
+        BP.set_motor_dps(PORT_B, motor_dps);
+        BP.set_motor_dps(PORT_C, (motor_dps * -1));
+        usleep(1);
+    }
+    else {
+        moveFwd;
+    }
+}
+
 void detectCrossing(sensor_color_t Color1){
     const unsigned int followColor = color;
-
-    // BP.get_sensor(PORT_1, Color1);
+    unsigned int col = color;
+    unsigned int colcount = 0;
     if (BP.get_sensor(PORT_1, Color1) == 0) {
-        cout << "color: " << (int)Color1.color << endl;
-
-        int colorLeft, colorRight;
-    	if((int)Color1.color != 1 || (int)Color1.color != 6) {
-            colorLeft = (int)Color1.color;
-            long double starttime = time(0);
-
-            while (true) {
-                BP.get_sensor(PORT_1, Color1);
-                if (time(0) > (starttime + 500)) {
-                    break;
+        /* Colors:
+         * 1: zwart
+         * 2: blauw
+         * 3: groen
+         * 4: geel 
+         * 5: rood
+         * 6: wit
+         */
+        cout << "Detected color: " << (int)Color1.color << endl;
+        
+        if ((int)Color1.color != 1 || (int)Color1.color != 6) {
+            if (Color1.color != col) {
+                if (colcount < 10) {
+                    col = color;
+                    colcount++;
+                } else {
+                    pick_dir;
                 }
-                if ((int)Color1.color != colorLeft || (int)Color1.color != 1 || (int)Color1.color != 6) {
-                    colorRight = Color1.color;
+            } else {
+                if (colcount < 10) {
+                    colcount++;
+                } else {
+                    pick_dir;
                 }
             }
         }
-        if (colorLeft == followColor) {
-            moveLeft;
-            //sleep(2);
-        }
-        else if (colorRight == followColor) {
-            moveRight;
-            //sleep(2);
-        }
-        else {
-        cout << "BROKE AF\n";
-        }
+    }
+    else {
+        cout << "Shit's fucked yo\n";
     }
 }
 
