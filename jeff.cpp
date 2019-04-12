@@ -146,7 +146,7 @@ void detectMed(sensor_color_t Color1){
 // Line following and monitorig
 void followLine(sensor_color_t Color1, sensor_ultrasonic_t Ultrasonic2, sensor_light_t Light3){
 	while(true){
-		if(detectObstacle(Ultrasonic2)){
+		if(!detectObstacle(Ultrasonic2)){
 			detectCrossing(Color1);
 			
 			BP.get_sensor(PORT_3, Light3);
