@@ -116,23 +116,23 @@ void detectMed(sensor_color_t Color1){
 			
 			// No meds
 			if((Color1.reflected_red <= 340) && (Color1.reflected_green <= 300) && (Color1.reflected_blue <= 100)){
-			waiting = true;
+				waiting = true;
 			}
 			
 			// Color red detected
     		if((Color1.reflected_red >= 400) && (Color1.reflected_green <= 300) && (Color1.reflected_blue <= 300)){
-			med_color = "red";
-			waiting = false;
-			break;
+				med_color = "red";
+				waiting = false;
+				break;
 			}
 			
 			// Color yellow detected
-    		if((Color1.reflected_red >= 400) && (Color1.reflected_green >= 350) && (Color1.reflected_blue <= 300)){
-			med_color = "yellow";
-			waiting = false;
-			break;
+    		else if((Color1.reflected_red >= 400) && (Color1.reflected_green >= 350) && (Color1.reflected_blue <= 300)){
+				med_color = "yellow";
+				waiting = false;
+				break;
 			}else{
-			waiting = true;
+				waiting = true;
 			}
         }
     }
