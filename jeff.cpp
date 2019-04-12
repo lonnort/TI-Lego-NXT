@@ -65,11 +65,13 @@ void turnRight(void){
 // Collision detection
 bool detectObstacle(sensor_ultrasonic_t Ultrasonic2){
 	BP.get_sensor(PORT_2, Ultrasonic2);
-	if (Ultrasonic2.cm <= collision_distance) {
-		return (false);
-	}else{
-		return (true);
-	}
+	return (Ultrasonic2.cm <= collision_distance);
+	
+	// if (Ultrasonic2.cm <= collision_distance) {
+	// 	return (false);
+	// }else{
+	// 	return (true);
+	// }
 }
 
 // Crossing detection
@@ -120,7 +122,7 @@ void detectMed(sensor_color_t Color1){
 			}
 			
 			// Color red detected
-    		if((Color1.reflected_red >= 400) && (Color1.reflected_green <= 300) && (Color1.reflected_blue <= 300)){
+    		else if((Color1.reflected_red >= 400) && (Color1.reflected_green <= 300) && (Color1.reflected_blue <= 300)){
 				med_color = "red";
 				waiting = false;
 				break;
